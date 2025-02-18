@@ -84,6 +84,10 @@ function average(colors: Color[]): Color {
 
 export function validateColor(input: string | null): Color {
   const color = String(input || "");
-  return /^#[0-9a-f]{6}$/i.test(color) ? color : "#00ff00";
+  return /^#[0-9a-f]{6}$/i.test(color) ? color : randomColor();
 }
 
+export function randomColor(): Color {
+  const random = () => Math.floor(Math.random() * 256).toString(16).padStart(2, "0");
+  return `#${random()}${random()}${random()}`;
+}

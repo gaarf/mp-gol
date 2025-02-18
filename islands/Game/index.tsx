@@ -1,11 +1,12 @@
 import { type Grid } from "@/game-of-life/logic.ts";
-import { useCallback } from "@/hooks.ts";
+import { useCallback, useState } from "@/hooks.ts";
 
 type GameIslandProps = {
-  grid: Grid;
+  initialGrid: Grid;
 };
 
-export const GameIsland = ({ grid }: GameIslandProps) => {
+export const GameIsland = ({ initialGrid }: GameIslandProps) => {
+  const [grid, setGrid] = useState(initialGrid);
   const cols = grid[0].length;
 
   const handleClickedCell = useCallback((x: number, y: number) => {

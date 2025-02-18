@@ -1,7 +1,7 @@
 import { type Handler, type PageProps } from "@/types.ts";
 import GameIsland from "$islands/Game/index.tsx";
 
-import { type Grid } from "@/game-of-life/logic.ts";
+import { validateColor, type Grid } from "@/game-of-life/logic.ts";
 import getInstance from "@/game-of-life/instance.ts";
 
 interface Data {
@@ -10,6 +10,7 @@ interface Data {
 
 export const handler: Handler<Data> = (request, ctx) => {
   const game = getInstance();
+  const color = validateColor(ctx.url.searchParams.get("color"));
 
   if (request.headers.get("upgrade") === "websocket") {
     const { socket, response } = Deno.upgradeWebSocket(request);
@@ -18,7 +19,7 @@ export const handler: Handler<Data> = (request, ctx) => {
       console.log("CONNECTED");
     };
     socket.onmessage = (event) => {
-      console.log(`RECEIVED: ${event.data}`);
+      console.log(`RECEIVED: ${event.data} ${color}`);
       socket.send("pong");
     };
     socket.onclose = () => console.log("DISCONNECTED");
@@ -36,7 +37,7 @@ export default function Home({ data }: PageProps<Data>) {
 
   return (
     <main>
-      <GameIsland grid={grid} />
+      <GameIsland initialGrid={grid} />
     </main>
   );
 }

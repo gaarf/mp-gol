@@ -1,12 +1,22 @@
 import { validateColor } from "@/game-of-life/logic.ts";
-import { useState } from "@/hooks.ts";
+import { useEffect, useMemo, useState } from "@/hooks.ts";
 
 export const ColorPicker = () => {
   if (!location) return null; // client-side only
 
+  const urlColor = useMemo(() => {
+    return new URL(location.href).searchParams.get("color");
+  }, []);
+
   const [current, setCurrent] = useState(() => {
-    return validateColor(new URL(location.href).searchParams.get("color"));
+    return validateColor(urlColor);
   });
+
+  useEffect(() => {
+    if (current !== urlColor) {
+      location.search = `?color=${current}`;
+    }
+  }, [urlColor]);
 
   return (
     <form class="flex justify-center">
