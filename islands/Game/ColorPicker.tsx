@@ -1,4 +1,4 @@
-import { Color } from "@/game-of-life/game.ts";
+import { type Color } from "@/game-of-life/logic.ts";
 import { useState } from "@/hooks.ts";
 
 type ColorPickerProps = {

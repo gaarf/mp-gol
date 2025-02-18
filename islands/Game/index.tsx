@@ -1,4 +1,4 @@
-import type { Color, Grid } from "@/game-of-life/game.ts";
+import type { Color, Grid } from "@/game-of-life/logic.ts";
 import { useCallback } from "@/hooks.ts";
 
 import { ColorPicker } from "./ColorPicker.tsx";

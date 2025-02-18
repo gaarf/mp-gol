@@ -1,19 +1,17 @@
 import { type Handler, type PageProps } from "@/types.ts";
 import GameIsland from "$islands/Game/index.tsx";
 
-import GameLogic, { type Color, type Grid } from '@/game-of-life/game.ts';
+import { validateColor, type Color, type Grid } from "@/game-of-life/logic.ts";
+import gameInstance from "@/game-of-life/instance.ts";
 
 interface Data {
   grid: Grid;
   color: Color;
 }
 
-const game = new GameLogic();
-
 export const handler: Handler<Data> = (_req, ctx) => {
-  const color = GameLogic.validateColor(ctx.url.searchParams.get("color"));
-
-  return ctx.render({ color, grid: game.grid });
+  const color = validateColor(ctx.url.searchParams.get("color"));
+  return ctx.render({ color, grid: gameInstance.grid });
 };
 
 export default function Home({ data }: PageProps<Data>) {

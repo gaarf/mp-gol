@@ -68,11 +68,8 @@ export default class GameLogic {
     return newGrid;
   }
 
-  static validateColor(input: string | null): Color {
-    const color = String(input || "");
-    return /^#[0-9a-f]{6}$/i.test(color) ? color : "#00ff00";
-  }
 }
+
 
 function average(colors: Color[]): Color {
   const n = colors.length;
@@ -84,3 +81,9 @@ function average(colors: Color[]): Color {
   ].map((v) => Math.round(v).toString(16));
   return `#${rgb.join("")}`;
 }
+
+export function validateColor(input: string | null): Color {
+  const color = String(input || "");
+  return /^#[0-9a-f]{6}$/i.test(color) ? color : "#00ff00";
+}
+
