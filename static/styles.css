@@ -1,0 +1,180 @@
+@import url("https://unpkg.com/react-toastify@10.0.5/dist/ReactToastify.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+:root[data-theme="light"] {
+  /* Light - Monochrome */
+  --color-default-text: 0 0 0;
+  --color-default-bg: 255 255 255;
+
+  /* Neutral Palette */
+  --color-grf-neutral-1: 245 245 245;
+  --color-grf-neutral-2: 232 232 232;
+  --color-grf-neutral-3: 218 218 218;
+  --color-grf-neutral-4: 194 194 194;
+  --color-grf-neutral-5: 175 175 175;
+  --color-grf-neutral-6: 156 156 156;
+  --color-grf-neutral-7: 133 133 133;
+  --color-grf-neutral-8: 112 112 112;
+  --color-grf-neutral-9: 90 90 90;
+  --color-grf-neutral-10: 69 69 69;
+  --color-grf-neutral-11: 46 46 46;
+  --color-grf-neutral-12: 23 23 23;
+
+  /* Accent Palette (Light Theme) */
+  --color-grf-accent-1: 240 248 255; /* Very light blue */
+  --color-grf-accent-2: 224 242 255;
+  --color-grf-accent-3: 192 224 255;
+  --color-grf-accent-4: 160 210 255;
+  --color-grf-accent-5: 128 194 255;
+  --color-grf-accent-6: 96 178 255;
+  --color-grf-accent-7: 64 158 255;
+  --color-grf-accent-8: 32 142 255;
+  --color-grf-accent-9: 0 122 255; /* Bright Blue */
+  --color-grf-accent-10: 0 110 230;
+  --color-grf-accent-11: 0 90 192;
+  --color-grf-accent-12: 0 70 153;
+
+  /* Success Palette (Vivid Green) */
+  --color-grf-success-1: 180 255 160; /* Vivid light green */
+  --color-grf-success-2: 140 240 120;
+  --color-grf-success-3: 100 225 80;
+  --color-grf-success-4: 60 210 40;
+  --color-grf-success-5: 30 195 10;
+  --color-grf-success-6: 20 180 0; /* Vivid green */
+  --color-grf-success-7: 10 160 0;
+  --color-grf-success-8: 0 140 0;
+  --color-grf-success-9: 0 120 0;
+  --color-grf-success-10: 0 100 0;
+  --color-grf-success-11: 0 80 0;
+  --color-grf-success-12: 0 60 0; /* Dark vivid green */
+
+  /* Warning Palette (Cyan/Teal) */
+  --color-grf-warning-1: 175 255 235; /* Light cyan */
+  --color-grf-warning-2: 135 240 215;
+  --color-grf-warning-3: 95 225 195;
+  --color-grf-warning-4: 55 210 175;
+  --color-grf-warning-5: 15 195 155; /* Vivid cyan */
+  --color-grf-warning-6: 0 180 135;
+  --color-grf-warning-7: 0 160 115;
+  --color-grf-warning-8: 0 140 95;
+  --color-grf-warning-9: 0 120 75;
+  --color-grf-warning-10: 0 100 55;
+  --color-grf-warning-11: 0 80 35;
+  --color-grf-warning-12: 0 60 15; /* Dark teal */
+
+  /* Danger Palette (Vivid Red) */
+  --color-grf-danger-1: 255 200 200; /* Vivid light red */
+  --color-grf-danger-2: 255 160 160;
+  --color-grf-danger-3: 255 120 120;
+  --color-grf-danger-4: 255 80 80;
+  --color-grf-danger-5: 255 40 40; /* Vivid red */
+  --color-grf-danger-6: 235 20 20;
+  --color-grf-danger-7: 215 0 0;
+  --color-grf-danger-8: 195 0 0;
+  --color-grf-danger-9: 175 0 0;
+  --color-grf-danger-10: 155 0 0;
+  --color-grf-danger-11: 135 0 0;
+  --color-grf-danger-12: 115 0 0; /* Dark vivid red */
+}
+:root[data-theme="dark"] {
+  /* Dark - Monochrome */
+  --color-default-text: 255 255 255;
+  --color-default-bg: 18 18 18;
+
+  /* Neutral Palette (Dark Theme) */
+  --color-grf-neutral-1: 23 23 23;
+  --color-grf-neutral-2: 36 36 36;
+  --color-grf-neutral-3: 46 46 46;
+  --color-grf-neutral-4: 58 58 58;
+  --color-grf-neutral-5: 69 69 69;
+  --color-grf-neutral-6: 85 85 85;
+  --color-grf-neutral-7: 102 102 102;
+  --color-grf-neutral-8: 121 121 121;
+  --color-grf-neutral-9: 143 143 143;
+  --color-grf-neutral-10: 163 163 163;
+  --color-grf-neutral-11: 189 189 189;
+  --color-grf-neutral-12: 218 218 218;
+
+  /* Accent Palette (Dark Theme) */
+  --color-grf-accent-1: 20 30 40;
+  --color-grf-accent-2: 30 50 70;
+  --color-grf-accent-3: 40 70 100;
+  --color-grf-accent-4: 60 90 140;
+  --color-grf-accent-5: 80 110 180;
+  --color-grf-accent-6: 100 130 220;
+  --color-grf-accent-7: 120 150 250;
+  --color-grf-accent-8: 140 160 255;
+  --color-grf-accent-9: 0 122 255; /* Bright Blue */
+  --color-grf-accent-10: 0 110 230;
+  --color-grf-accent-11: 0 90 192;
+  --color-grf-accent-12: 0 70 153;
+
+  /* Success Palette (Vivid Green) */
+  --color-grf-success-1: 10 50 10; /* Dark vivid green */
+  --color-grf-success-2: 20 70 20;
+  --color-grf-success-3: 30 90 30;
+  --color-grf-success-4: 40 110 40;
+  --color-grf-success-5: 50 130 50;
+  --color-grf-success-6: 60 150 60; /* Vivid green */
+  --color-grf-success-7: 70 170 70;
+  --color-grf-success-8: 80 190 80;
+  --color-grf-success-9: 90 210 90;
+  --color-grf-success-10: 100 230 100;
+  --color-grf-success-11: 110 250 110;
+  --color-grf-success-12: 120 255 120; /* Vivid light green */
+
+  /* Warning Palette (Cyan/Teal) */
+  --color-grf-warning-1: 0 60 40; /* Dark teal */
+  --color-grf-warning-2: 0 80 60;
+  --color-grf-warning-3: 0 100 80;
+  --color-grf-warning-4: 0 120 100;
+  --color-grf-warning-5: 0 140 120; /* Vivid cyan */
+  --color-grf-warning-6: 0 160 140;
+  --color-grf-warning-7: 0 180 160;
+  --color-grf-warning-8: 0 200 180;
+  --color-grf-warning-9: 15 195 155;
+  --color-grf-warning-10: 55 210 175;
+  --color-grf-warning-11: 95 225 195;
+  --color-grf-warning-12: 135 240 215; /* Light cyan */
+
+  /* Danger Palette (Vivid Red) */
+  --color-grf-danger-1: 60 0 0; /* Dark vivid red */
+  --color-grf-danger-2: 80 0 0;
+  --color-grf-danger-3: 100 0 0;
+  --color-grf-danger-4: 120 0 0;
+  --color-grf-danger-5: 140 0 0; /* Vivid red */
+  --color-grf-danger-6: 160 20 20;
+  --color-grf-danger-7: 180 40 40;
+  --color-grf-danger-8: 200 60 60;
+  --color-grf-danger-9: 220 80 80;
+  --color-grf-danger-10: 240 100 100;
+  --color-grf-danger-11: 255 120 120;
+  --color-grf-danger-12: 255 140 140; /* Vivid light red */
+}
+
+@layer base {
+  :root {
+    --toastify-color-light: rgb(var(--color-grf-neutral-1));
+    --toastify-color-dark: rgb(var(--color-grf-neutral-1));
+    --toastify-color-info: rgb(var(--color-grf-accent-10));
+    --toastify-color-success: rgb(var(--color-grf-success-10));
+    --toastify-color-warning: rgb(var(--color-grf-warning-10));
+    --toastify-color-error: rgb(var(--color-grf-danger-10));
+
+    /* Font antialising */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-group(root) {
+    animation-duration: 0.5s;
+  }
+}
