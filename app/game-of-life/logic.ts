@@ -24,7 +24,7 @@ export default class GameLogic {
     socket.addEventListener("message", ({ data }) => {
       try {
         const { x, y, color } = JSON.parse(data);
-        this.toggleCell(x, y, color);
+        this.setCell(x, y, color);
       } catch (e) {
         console.error(e);
       }
@@ -37,8 +37,8 @@ export default class GameLogic {
     }
   }
 
-  private toggleCell(x: number, y: number, color: Color) {
-    this.grid[y][x] = this.grid[y][x] ? undefined : color;
+  private setCell(x: number, y: number, color: Color) {
+    this.grid[y][x] = color;
     this.emitStateToPlayers();
   }
 

@@ -23,7 +23,7 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
     ws.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
       setGrid(data.grid);
-      console.log(data.tick)
+      console.log(data.tick);
     });
 
     return ws;
@@ -31,16 +31,15 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
 
   const handleClickedCell = useCallback((x: number, y: number) => {
     ws?.send(JSON.stringify({ x, y, color }));
-    // setGrid((old) =>
-    //   old.map((row, rowIndex) =>
-    //     rowIndex === y
-    //       ? row.map((cell, cellIndex) =>
-    //           cellIndex === x ? (cell ? undefined : color!) : cell
-    //         )
-    //       : row
-    //   )
-    // );
+    setGrid((old) =>
+      old.map((row, rowIndex) =>
+        rowIndex === y
+          ? row.map((cell, cellIndex) => (cellIndex === x ? color! : cell))
+          : row
+      )
+    );
   }, []);
+
 
   return (
     <div
@@ -53,7 +52,10 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
             key={`${rowIndex}-${colIndex}`}
             class="border aspect-square hover:shadow-xl hover:scale-110 transition cursor-pointer"
             style={{ backgroundColor: cell }}
-            onClick={() => handleClickedCell(colIndex, rowIndex)}
+            onPointerDown={() => handleClickedCell(colIndex, rowIndex)}
+            onPointerEnter={(event) =>
+              event.pressure && handleClickedCell(colIndex, rowIndex)
+            }
           />
         ))
       )}

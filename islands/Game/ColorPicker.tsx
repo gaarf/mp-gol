@@ -1,12 +1,13 @@
 import { validateColor } from "@/game-of-life/logic.ts";
 import { useEffect, useMemo, useState } from "@/hooks.ts";
+import { IS_BROWSER } from "@/utils.ts";
 
 export function getColorFromUrl() {
   return location ? new URL(location.href).searchParams.get("color") : null;
 }
 
 export const ColorPicker = () => {
-  if (!location) return null; // client-side only
+  if (!IS_BROWSER) return null; // client-side only
 
   const urlColor = useMemo(getColorFromUrl, []);
 
