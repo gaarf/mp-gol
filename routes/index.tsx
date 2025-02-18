@@ -1,26 +1,27 @@
 import { type Handler, type PageProps } from "@/types.ts";
-import { setMessage } from "@/components/Message.tsx";
-import { GameOfLife } from "$islands/Game/index.tsx";
+import GameIsland from "$islands/Game/index.tsx";
+
+import GameLogic, { type Color, type Grid } from '@/game-of-life/game.ts';
 
 interface Data {
-  search?: string;
+  grid: Grid;
+  color: Color;
 }
 
+const game = new GameLogic();
+
 export const handler: Handler<Data> = (_req, ctx) => {
-  const search = ctx.url.searchParams.get("search") || "";
+  const color = GameLogic.validateColor(ctx.url.searchParams.get("color"));
 
-  if (search) {
-    setMessage(ctx, "Search not implemented!", "warning");
-  }
-
-  return ctx.render({ search });
+  return ctx.render({ color, grid: game.grid });
 };
 
-export default function Home({ data: _data }: PageProps<Data>) {
+export default function Home({ data }: PageProps<Data>) {
+  const { grid, color } = data!;
 
   return (
-    <main class="border flex-1 rounded-lg overflow-hidden relative">
-      <GameOfLife />
+    <main>
+      <GameIsland color={color} grid={grid} />
     </main>
   );
 }
