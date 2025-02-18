@@ -19,9 +19,8 @@ export default function Layout({ Component, state }: PageProps) {
         </Partial>
       </Container>
 
-      <footer class="flex flex-col items-center p-4">
-        <Logo />
-        <p class="text-xs text-center m-2">
+      <footer class="flex flex-col items-center justify-center pb-4">
+        <p class="text-xs">
           &copy; {new Date().getFullYear()} Gaarf
         </p>
       </footer>
@@ -30,5 +29,5 @@ export default function Layout({ Component, state }: PageProps) {
 }
 
 function Logo() {
-  return <span class="w-20 dark:invert">🐈</span>;
+  return <span class="text-lg font-bold">Game of Life</span>;
 }
