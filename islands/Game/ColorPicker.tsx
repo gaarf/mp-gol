@@ -1,18 +1,21 @@
 import { validateColor } from "@/game-of-life/logic.ts";
 import { useEffect, useMemo, useState } from "@/hooks.ts";
 
+export function getColorFromUrl() {
+  return location ? new URL(location.href).searchParams.get("color") : null;
+}
+
 export const ColorPicker = () => {
   if (!location) return null; // client-side only
 
-  const urlColor = useMemo(() => {
-    return new URL(location.href).searchParams.get("color");
-  }, []);
+  const urlColor = useMemo(getColorFromUrl, []);
 
   const [current, setCurrent] = useState(() => {
     return validateColor(urlColor);
   });
 
   useEffect(() => {
+    // ensure the URL is always up-to-date
     if (current !== urlColor) {
       location.search = `?color=${current}`;
     }

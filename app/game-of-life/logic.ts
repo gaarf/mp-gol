@@ -6,22 +6,68 @@ export type Grid = Cell[][];
 export default class GameLogic {
   public grid: Grid;
   public tick = 0;
+  private players: WebSocket[] = [];
+  private timer: number | null = null;
 
   constructor(public cols = 20, public rows = 20) {
     this.grid = this.createEmptyGrid();
   }
 
+  public addPlayer(socket: WebSocket) {
+    // register player
+    this.players.push(socket);
+    console.log('Player count:', this.players.length);
+
+    // send current state
+    socket.send(this.serialize());
+
+    socket.addEventListener("message", ({ data }) => {
+      try {
+        const { x, y, color } = JSON.parse(data);
+        this.toggleCell(x, y, color);
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    // start game if not already started
+    if (this.players.length >= 1 && !this.timer) {
+      console.log("Starting game");
+      this.timer = setInterval(this.iterate.bind(this), 2000);
+    }
+  }
+
+  private toggleCell(x: number, y: number, color: Color) {
+    this.grid[y][x] = this.grid[y][x] ? undefined : color;
+    this.emitStateToPlayers();
+  }
+
+  public removePlayer(socket: WebSocket) {
+    this.players = this.players.filter((s) => s !== socket);
+    console.log('Player count:', this.players.length);
+    if (this.players.length <= 0 && this.timer) {
+      console.log("Stopping game");
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+
   public iterate() {
     this.grid = this.getNextGeneration();
     this.tick++;
+    this.emitStateToPlayers();
   }
 
-  public setCell(x: number, y: number, color: Color) {
-    if (x >= 0 && x < this.rows && y >= 0 && y < this.cols) {
-      this.grid[x][y] = color;
-    } else {
-      throw new Error(`Cell (${x}, ${y}) is out of bounds`);
-    }
+  private emitStateToPlayers() {
+    // console.log('emitStateToPlayers', this.tick);
+    const state = this.serialize();
+    this.players.forEach((socket) => {
+      socket.send(state);
+    });
+  }
+
+  public serialize() {
+    return JSON.stringify({ grid: this.grid, tick: this.tick });
   }
 
   private createEmptyGrid(): Grid {
@@ -35,8 +81,8 @@ export default class GameLogic {
     const newGrid = this.createEmptyGrid();
 
     const getCell = (x: number, y: number): Cell => {
-      if (x < 0 || x >= rows || y < 0 || y >= cols) return undefined;
-      return this.grid[x][y];
+      if (x < 0 || x >= cols || y < 0 || y >= rows) return undefined;
+      return this.grid[y][x];
     };
 
     for (let x = 0; x < rows; x++) {
@@ -57,19 +103,17 @@ export default class GameLogic {
 
         if (cell) {
           // alive
-          newGrid[x][y] = count === 2 || count === 3 ? cell : undefined;
+          newGrid[y][x] = count === 2 || count === 3 ? cell : undefined;
         } else if (count === 3) {
           // dead but has 3 neighbors
-          newGrid[x][y] = average(colors);
+          newGrid[y][x] = average(colors);
         }
       }
     }
 
     return newGrid;
   }
-
 }
-
 
 function average(colors: Color[]): Color {
   const n = colors.length;
@@ -78,7 +122,7 @@ function average(colors: Color[]): Color {
     colors.map((c) => parseInt(c.slice(1, 3), 16)).reduce(add, 0) / n,
     colors.map((c) => parseInt(c.slice(3, 5), 16)).reduce(add, 0) / n,
     colors.map((c) => parseInt(c.slice(5, 7), 16)).reduce(add, 0) / n,
-  ].map((v) => Math.round(v).toString(16));
+  ].map((v) => Math.round(v).toString(16).padStart(2, '0'));
   return `#${rgb.join("")}`;
 }
 
@@ -88,6 +132,9 @@ export function validateColor(input: string | null): Color {
 }
 
 export function randomColor(): Color {
-  const random = () => Math.floor(Math.random() * 256).toString(16).padStart(2, "0");
+  const random = () =>
+    Math.floor(Math.random() * 256)
+      .toString(16)
+      .padStart(2, "0");
   return `#${random()}${random()}${random()}`;
 }
