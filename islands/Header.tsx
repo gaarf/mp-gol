@@ -1,6 +1,7 @@
 import { cn, type PropsWithChildren } from "@/utils.ts";
 import { Container } from "@/components/index.ts";
 import { Switch as ThemeSwitch } from "@/theme/Switch.tsx";
+import { ColorPicker } from "$islands/Game/ColorPicker.tsx";
 
 type HeaderProps = {
   fixed?: boolean;
@@ -27,10 +28,11 @@ export const Header = ({
         )}
       >
         <Container>
-          <h1 class="text-center text-ellipsis whitespace-nowrap overflow-hidden ">
+          <h1 class="text-center text-ellipsis whitespace-nowrap overflow-hidden">
             {children}
           </h1>
           <nav class="flex gap-2">
+            <ColorPicker />
             <ThemeSwitch />
             {/* <Button href="/profile">
               <Icon.User />

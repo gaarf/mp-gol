@@ -29,5 +29,5 @@ export default function Layout({ Component, state }: PageProps) {
 }
 
 function Logo() {
-  return <span class="text-lg font-bold">Game of Life</span>;
+  return <span class="text-lg font-bold">Multiplayer Game of Life</span>;
 }

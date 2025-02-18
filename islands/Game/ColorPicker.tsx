@@ -1,17 +1,17 @@
-import { type Color } from "@/game-of-life/logic.ts";
+import { validateColor } from "@/game-of-life/logic.ts";
 import { useState } from "@/hooks.ts";
 
-type ColorPickerProps = {
-  color?: Color;
-};
+export const ColorPicker = () => {
+  if (!location) return null; // client-side only
 
-export const ColorPicker = ({ color }: ColorPickerProps) => {
-  const [current, setCurrent] = useState(color);
+  const [current, setCurrent] = useState(() => {
+    return validateColor(new URL(location.href).searchParams.get("color"));
+  });
 
   return (
-    <form class="pb-2 flex justify-center">
-      <label class="flex items-center gap-2">
-        <span>Your color:</span>
+    <form class="flex justify-center">
+      <label class="flex items-center gap-1 text-xs">
+        <span class="whitespace-nowrap">Your color:</span>
         <input
           type="color"
           value={current}
