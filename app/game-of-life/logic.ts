@@ -24,6 +24,7 @@ export default class GameLogic {
     socket.addEventListener("message", ({ data }) => {
       try {
         const { x, y, color } = JSON.parse(data);
+        console.log({ x, y, color });
         this.setCell(x, y, color);
       } catch (e) {
         console.error(e);
@@ -32,7 +33,7 @@ export default class GameLogic {
 
     // start game if not already started
     if (this.players.length >= 1 && !this.timer) {
-      console.log("Starting game");
+      console.log("Starting game...");
       this.timer = setInterval(this.iterate.bind(this), 2000);
     }
   }
@@ -46,7 +47,7 @@ export default class GameLogic {
     this.players = this.players.filter((s) => s !== socket);
     console.log('Player count:', this.players.length);
     if (this.players.length <= 0 && this.timer) {
-      console.log("Stopping game");
+      console.log("Stopping game.");
       clearInterval(this.timer);
       this.timer = null;
     }
@@ -59,7 +60,6 @@ export default class GameLogic {
   }
 
   private emitStateToPlayers() {
-    // console.log('emitStateToPlayers', this.tick);
     const state = this.serialize();
     this.players.forEach((socket) => {
       socket.send(state);

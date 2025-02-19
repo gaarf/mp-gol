@@ -3,7 +3,9 @@ import { useEffect, useMemo, useState } from "@/hooks.ts";
 import { IS_BROWSER } from "@/utils.ts";
 
 export function getColorFromUrl() {
-  return location ? new URL(location.href).searchParams.get("color") : null;
+  return IS_BROWSER
+    ? new URLSearchParams(location.search).get("color")
+    : null;
 }
 
 export const ColorPicker = () => {
@@ -18,7 +20,7 @@ export const ColorPicker = () => {
   useEffect(() => {
     // ensure the URL is always up-to-date
     if (current !== urlColor) {
-      location.search = `?color=${current}`;
+      location.replace(`?color=${encodeURIComponent(current)}`);
     }
   }, [urlColor]);
 

@@ -26,20 +26,16 @@ const patterns = {
 `,
 };
 
-export const Controls = ({ children, onPattern }: ControlsProps) => {
+export const Controls = ({ onPattern }: ControlsProps) => {
   return (
-    <div class="flex justify-between flex-col sm:flex-row items-start mb-4 gap-4">
-      <p class="italic">{children}</p>
-      <div class="flex items-center gap-2 text-xs">
-        <span>Patterns:</span>
-        <ButtonGroup>
-          {Object.entries(patterns).map(([name, pattern]) => (
-            <Button key={name} onClick={() => onPattern(pattern)}>
-              {name}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </div>
+    <div class="flex justify-center mb-4">
+      <ButtonGroup>
+        {Object.entries(patterns).map(([name, pattern]) => (
+          <Button key={name} onClick={() => onPattern(pattern)}>
+            {name}
+          </Button>
+        ))}
+      </ButtonGroup>
     </div>
   );
 };
