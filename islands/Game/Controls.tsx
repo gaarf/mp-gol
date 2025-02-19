@@ -24,6 +24,12 @@ const patterns = {
 ...■.
 .■■■.
 `,
+  LWSS: `
+..■..■.
+.■.....
+.■...■.
+.■■■■..
+`,
 };
 
 export const Controls = ({ onPattern }: ControlsProps) => {
