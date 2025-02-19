@@ -1,3 +1,5 @@
+import { randomIntegerBetween } from "@std/random";
+
 // Purpose: Contains the logic for the game of life.
 export type Color = string; // hex color
 export type Cell = Color | undefined; // alive or dead
@@ -16,7 +18,7 @@ export default class GameLogic {
   public addPlayer(socket: WebSocket) {
     // register player
     this.players.push(socket);
-    console.log('Player count:', this.players.length);
+    console.log("Player count:", this.players.length);
 
     // send current state
     socket.send(this.serialize());
@@ -45,7 +47,7 @@ export default class GameLogic {
 
   public removePlayer(socket: WebSocket) {
     this.players = this.players.filter((s) => s !== socket);
-    console.log('Player count:', this.players.length);
+    console.log("Player count:", this.players.length);
     if (this.players.length <= 0 && this.timer) {
       console.log("Stopping game.");
       clearInterval(this.timer);
@@ -122,7 +124,7 @@ function average(colors: Color[]): Color {
     colors.map((c) => parseInt(c.slice(1, 3), 16)).reduce(add, 0) / n,
     colors.map((c) => parseInt(c.slice(3, 5), 16)).reduce(add, 0) / n,
     colors.map((c) => parseInt(c.slice(5, 7), 16)).reduce(add, 0) / n,
-  ].map((v) => Math.round(v).toString(16).padStart(2, '0'));
+  ].map((v) => Math.round(v).toString(16).padStart(2, "0"));
   return `#${rgb.join("")}`;
 }
 
@@ -132,9 +134,6 @@ export function validateColor(input: string | null): Color {
 }
 
 export function randomColor(): Color {
-  const random = () =>
-    Math.floor(Math.random() * 256)
-      .toString(16)
-      .padStart(2, "0");
-  return `#${random()}${random()}${random()}`;
+  const r = () => randomIntegerBetween(0, 255).toString(16).padStart(2, "0");
+  return `#${r()}${r()}${r()}`;
 }
