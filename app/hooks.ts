@@ -9,7 +9,7 @@ import {
   useSignal,
   useSignalEffect,
 } from "@preact/signals";
-import { type JsonValue } from "$std/json/common.ts";
+import { type JsonValue } from "@std/json";
 export { useComputed, useEffect, useMemo, useRef, useSignal, useSignalEffect };
 
 export function useRandomID(length?: number) {

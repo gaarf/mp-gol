@@ -1,5 +1,5 @@
 import { type Theme, themeSignal, validThemes } from "@/theme/index.ts";
-import { getCookies } from "$std/http/mod.ts";
+import { getCookies } from "@std/http";
 import type { Plugin } from "@/types.ts";
 
 export default function (): Plugin {

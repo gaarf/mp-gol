@@ -9,6 +9,7 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $index from "./routes/index.tsx";
 import * as $Game_ColorPicker from "./islands/Game/ColorPicker.tsx";
+import * as $Game_Controls from "./islands/Game/Controls.tsx";
 import * as $Game_index from "./islands/Game/index.tsx";
 import * as $Header from "./islands/Header.tsx";
 import * as $Toaster from "./islands/Toaster.tsx";
@@ -25,6 +26,7 @@ const manifest = {
   },
   islands: {
     "./islands/Game/ColorPicker.tsx": $Game_ColorPicker,
+    "./islands/Game/Controls.tsx": $Game_Controls,
     "./islands/Game/index.tsx": $Game_index,
     "./islands/Header.tsx": $Header,
     "./islands/Toaster.tsx": $Toaster,

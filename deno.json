@@ -23,7 +23,7 @@
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$islands/": "./islands/",
-    "$std/": "https://deno.land/std@0.224.0/",
+    "@std": "jsr:@std",
     "@/": "./app/",
     "@preact-icons/common": "jsr:@preact-icons/common@^1.0.12",
     "@preact-icons/fa6": "jsr:@preact-icons/fa6@^1.0.12",
