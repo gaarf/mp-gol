@@ -53,12 +53,12 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
   );
 
   const handlePattern = useCallback((pattern: string) => {
-    const lines = pattern.split("\n").map((line) => `.${line}.`);
+    const lines = pattern.split("\n");
     const height = lines.length;
     const width = Math.max(...lines.map((line) => line.length));
 
-    const xStart = randomIntegerBetween(0, cols - width - 1);
-    const yStart = randomIntegerBetween(0, grid.length - height - 1);
+    const xStart = randomIntegerBetween(0, cols - width);
+    const yStart = randomIntegerBetween(0, grid.length - height);
 
     const color = getColorFromUrl()!;
     for (let y = 0; y < height; y++) {

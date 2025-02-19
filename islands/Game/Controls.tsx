@@ -7,22 +7,22 @@ type ControlsProps = PropsWithChildren<{
 
 const patterns = {
   Blinker: `
-■■■
+.■■■.
 `,
   Toad: `
-.■■■
-■■■
+..■■■.
+.■■■..
 `,
   Beacon: `
-■■
-■■
-..■■
-..■■
+.■■...
+.■■...
+...■■.
+...■■.
 `,
   Glider: `
-.■
-..■
-■■■
+..■..
+...■.
+.■■■.
 `,
 };
 

@@ -99,7 +99,7 @@ export default class GameLogic {
         ].filter((cell) => cell !== undefined) as Color[];
 
         const count = colors.length;
-        const cell = this.grid[x][y];
+        const cell = getCell(x, y);
 
         if (cell) {
           // alive
