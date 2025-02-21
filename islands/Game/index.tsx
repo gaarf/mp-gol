@@ -1,5 +1,5 @@
 import { type Grid } from "@/game-of-life/logic.ts";
-import { useCallback, useMemo, useState } from "@/hooks.ts";
+import { useMemo, useState } from "@/hooks.ts";
 import { getColorFromUrl } from "./ColorPicker.tsx";
 import { Controls } from "./Controls.tsx";
 import { toast } from "@/utils.ts";
@@ -30,29 +30,29 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
     return ws;
   }, []);
 
-  const colorize = useCallback(
-    (target: HTMLSpanElement, color?: string) => {
-      const [x, y] = target.dataset.xy!.split(",").map(Number);
-      if (grid[y][x] === color || !socket) {
-        return;
-      }
+  const colorize = (target: EventTarget | null, color?: string) => {
+    if (!(target instanceof HTMLSpanElement)) {
+      return;
+    }
+    const [x, y] = target.dataset.xy!.split(",").map(Number);
+    if (grid[y][x] === color || !socket) {
+      return;
+    }
 
-      // tell the server
-      socket.send(JSON.stringify({ x, y, color }));
+    // tell the server
+    socket.send(JSON.stringify({ x, y, color }));
 
-      // immediately show the change locally
-      setGrid((old) =>
-        old.map((row, rowIndex) =>
-          rowIndex === y
-            ? row.map((cell, cellIndex) => (cellIndex === x ? color : cell))
-            : row
-        )
-      );
-    },
-    [grid, socket]
-  );
+    // immediately show the change locally
+    setGrid((old) =>
+      old.map((row, rowIndex) =>
+        rowIndex === y
+          ? row.map((cell, cellIndex) => (cellIndex === x ? color : cell))
+          : row
+      )
+    );
+  };
 
-  const handlePattern = useCallback((pattern: string) => {
+  const handlePattern = (pattern: string) => {
     const lines = pattern.split("\n");
     const height = lines.length;
     const width = Math.max(...lines.map((line) => line.length));
@@ -72,7 +72,7 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
         }
       }
     }
-  }, []);
+  };
 
   return (
     <>
@@ -82,15 +82,21 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
         style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
         onPointerDown={(event) => {
           // single tap or click
-          if (event.button === 0 && event.target instanceof HTMLSpanElement) {
+          if (event.button === 0) {
             colorize(event.target, getColorFromUrl()!);
           }
         }}
         onPointerMove={(event) => {
           // dragging around with the mouse
-          // FIXME: touch event support
-          if (event.pressure && event.target instanceof HTMLSpanElement) {
+          if (event.pressure) {
             colorize(event.target, getColorFromUrl()!);
+          }
+        }}
+        onTouchMove={(event) => {
+          const [{ clientX, clientY }] = event.changedTouches;
+          const target = document.elementFromPoint(clientX, clientY);
+          if (target) {
+            colorize(target, getColorFromUrl()!);
           }
         }}
       >

@@ -79,10 +79,6 @@ This project is not licensed.
 
 Contributions are welcome! Please open an issue or submit a pull request for any changes.
 
-### Known issues
-
-- TODO: support for drawing shapes via touch events
-
 ## Acknowledgements
 
 - [Deno](https://deno.land/)
