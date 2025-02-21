@@ -53,13 +53,16 @@ mp-gol
 
 ### Important Files
 
-`app/game-of-life/logic.ts`: Contains the server-side game logic for Conway's Game of Life, including grid creation, cell updates, and game iteration.
-
-`islands/Game/index.tsx`: The main game component that renders the grid and handles user interactions.
-
-`islands/Game/ColorPicker.tsx`: A React component that allows users to choose a hex color. Reloads the page on blur.
-
-`islands/Game/Controls.tsx`: A React component that provides a set of buttons for adding pre-defined grid patterns.
+ `app/game-of-life/logic.ts` 
+ Contains the server-side game logic for Conway's Game of Life, including grid creation, cell updates, and game iteration.
+ 
+ `islands/Game/index.tsx` 
+ The main game component that renders the grid and handles user interactions.
+ 
+ `islands/Game/ColorPicker.tsx`
+ A React component that allows users to choose a hex color. Reloads the page on blur.
+ 
+ `islands/Game/Controls.tsx` A React component that provides a set of buttons for adding pre-defined grid patterns.
 
 ## License
 
