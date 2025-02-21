@@ -13,7 +13,7 @@ This project is a multiplayer version of Conway's Game of Life implemented using
 
 - [Deno](https://deno.land/manual/getting_started/installation)
 
-## Installation
+## Installation & Usage
 
 1. Clone the repository:
 
@@ -22,9 +22,7 @@ git clone https://github.com/gaarf/mp-gol.git
 cd mp-gol
 ```
 
-## Usage
-
-1. Start the Deno Fresh project:
+2. Start the Deno Fresh project:
 
 ```sh
 deno task dev
@@ -32,10 +30,10 @@ deno task dev
 
 This will install dependencies, watch the project directory and restart as necessary.
 
-2. Open [local server](http://localhost:8000)
+3. Open [local server](http://localhost:8000)
 
 
-## Relevant files / project Structure
+## Project Structure
 
 ```filetree
 mp-gol
@@ -53,21 +51,21 @@ mp-gol
 └── README.md
 ```
 
-## Components
+### Important Files
 
-### `ColorPicker.tsx`
+#### `app/game-of-life/logic.ts`
+
+Contains the server-side game logic for Conway's Game of Life, including grid creation, cell updates, and game iteration.
+
+#### `islands/Game/ColorPicker.tsx`
 
 A React component that allows users to choose a hex color.
 
-### `Controls.tsx`
+#### `islands/Game/Controls.tsx`
 
 A React component that provides a set of buttons for adding pre-defined grid patterns.
 
-### `logic.ts`
-
-Contains the game logic for Conway's Game of Life, including grid creation, cell updates, and game iteration.
-
-### `islands/Game/index.tsx`
+#### `islands/Game/index.tsx`
 
 The main game component that renders the grid and handles user interactions.
 
