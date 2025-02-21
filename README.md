@@ -75,13 +75,13 @@ The main game component that renders the grid and handles user interactions.
 
 This project is not licensed.
 
-## Known issues
-
-- TODO: support for drawing shapes via touch events
-
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any changes.
+
+### Known issues
+
+- TODO: support for drawing shapes via touch events
 
 ## Acknowledgements
 
