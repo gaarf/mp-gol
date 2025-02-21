@@ -31,11 +31,13 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
   }, []);
 
   const colorize = (target: EventTarget | null, color?: string) => {
-    if (!(target instanceof HTMLSpanElement)) {
+    if (!(target instanceof HTMLSpanElement && socket)) {
       return;
     }
     const [x, y] = target.dataset.xy!.split(",").map(Number);
-    if (grid[y][x] === color || !socket) {
+
+    // bail if already colorized
+    if (grid[y][x] === color) {
       return;
     }
 
@@ -52,24 +54,29 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
     );
   };
 
+  // when a pattern button is pressed
   const handlePattern = (pattern: string) => {
     const lines = pattern.split("\n");
     const height = lines.length;
+
+    // measure the pattern
     const width = Math.max(...lines.map((line) => line.length));
 
+    // find a place within the grid to place it
     const xStart = randomIntegerBetween(0, cols - width);
     const yStart = randomIntegerBetween(0, grid.length - height);
 
     const color = getColorFromUrl()!;
+
+    // find all relevant elements
     for (let y = 0; y < height; y++) {
       const line = lines.at(y);
       for (let x = 0; x < width; x++) {
         const span = document.querySelector(
           `span[data-xy="${xStart + x},${yStart + y}"]`
         );
-        if (span instanceof HTMLSpanElement) {
-          colorize(span, line?.at(x) === "■" ? color : undefined);
-        }
+        // clear or colorize the cell accordingl to the pattern
+        colorize(span, line?.at(x) === "■" ? color : undefined);
       }
     }
   };
@@ -93,6 +100,7 @@ export const GameIsland = ({ initialGrid }: GameIslandProps) => {
           }
         }}
         onTouchMove={(event) => {
+          // dragging around with touch
           const [{ clientX, clientY }] = event.changedTouches;
           const target = document.elementFromPoint(clientX, clientY);
           if (target) {
