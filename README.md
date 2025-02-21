@@ -1,6 +1,6 @@
 # Multiplayer Conway's Game of Life
 
-This project is a multiplayer version of Conway's Game of Life implemented using Deno and Preact. Players can connect to the game via WebSockets and interact with the grid in real-time.
+This project is a multiplayer version of Conway's Game of Life implemented using Deno/Fresh and Preact. Players can connect to the game via WebSockets and interact with the grid in real-time.
 
 ## Features
 
@@ -32,7 +32,7 @@ deno task dev
 
 This will install dependencies, watch the project directory and restart as necessary.
 
-2. Open http://localhost:8000
+2. Open [local server](http://localhost:8000)
 
 
 ## Relevant files / project Structure
@@ -74,6 +74,10 @@ The main game component that renders the grid and handles user interactions.
 ## License
 
 This project is not licensed.
+
+## Known issues
+
+- TODO: support for drawing shapes via touch events
 
 ## Contributing
 
